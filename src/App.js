@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {loadUsers} from "./store/users/user-actions";
+import {loadTodos} from "./store/todos/todo-actions";
+
+import NewTodo from "./components/NewTodo";
+import UserList from "./components/UserList"
+import TodoList from './components/TodoList'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(loadUsers())
+        dispatch(loadTodos())
+    }, [])
+
+    return (
+        <div className="App">
+            <h1>Hello Redux Thunk</h1>
+            <NewTodo />
+            <UserList />
+            <TodoList />
+        </div>
+    );
 }
 
 export default App;
